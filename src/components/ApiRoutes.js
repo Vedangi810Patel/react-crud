@@ -1,0 +1,92 @@
+import React, { useState, useEffect } from "react";
+import { Table } from "react-bootstrap";
+import "bootstrap/dist/css/bootstrap.min.css";
+
+import "../index.css";
+import PutApiCall from "./UpdatePosts";
+import DeleteApiCall from "./DeletePosts";
+import PostApiCall from "./InsertPosts";
+
+function ApiRoutes() {
+  const [apiData, setApiData] = useState([]);
+
+  useEffect(() => {
+    callApi();
+  }, []);
+
+  async function callApi() {
+    const res = await fetch("https://jsonplaceholder.typicode.com/posts");
+    const data = await res.json();
+    setApiData(data.slice(0, 9));
+  }
+
+  //Function to add new post in local because the api will not update in database
+  function addPost(newPost) {
+    setApiData([...apiData, newPost]);
+  }
+
+  async function deletePost(id) {
+    const res = await fetch(
+      `https://jsonplaceholder.typicode.com/posts/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    if (res.status === 200) {
+      setApiData(apiData.filter((post) => post.id !== id));
+    } else {
+      console.error("Failed to delete post");
+    }
+  }
+
+  function updatePost(updatedPost) {
+    const updatedData = apiData.map((post) =>
+      post.id === updatedPost.id ? updatedPost : post
+    );
+    setApiData(updatedData);
+  }
+
+  return (
+    <div className="main">
+      <p>CRUD Operations</p>
+      <PostApiCall addPost={addPost} />
+
+      <Table className="table-content" striped bordered variant="dark">
+        <thead>
+          <tr>
+            <th>Id</th>
+            <th>UserId</th>
+            <th>Title</th>
+            <th>Body</th>
+            <th>Operation</th>
+          </tr>
+        </thead>
+        <tbody>
+          {apiData.map((data) => {
+            return (
+              <tr key={data.id}>
+                <td>{data.id}</td>
+                <td>{data.userId}</td>
+                <td>{data.title}</td>
+                <td>{data.body}</td>
+                <td className="operation">
+                  <DeleteApiCall handleDelete={() => deletePost(data.id)} />
+                  <PutApiCall
+                    updatePost={updatePost}
+                    id={data.id}
+                    title={data.title}
+                    body={data.body}
+                    userId={data.userId}
+                  />
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </Table>
+    </div>
+  );
+}
+
+export default ApiRoutes;

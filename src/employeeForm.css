@@ -1,0 +1,88 @@
+/* employeeForm.css */
+
+.main-div {
+    background-color: rgb(192, 162, 150);
+    margin-left: 20%;
+    margin-right: 20%;
+    align-items: center;
+    padding: 30px;
+    border: 3px solid red;
+    text-align: center;
+    /* Center align the content */
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    /* Ensure full viewport height */
+    margin: 0;
+}
+
+.btn-group {
+    display: flex;
+    justify-content: center;
+    /* Change to center */
+    margin-bottom: 10px;
+}
+
+.btnSubmit {
+    height: 30px;
+    width: 130px;
+    font-family: Trebuchet MS;
+    font-size: 20px;
+    color: aliceblue;
+    background-color: rgb(139, 90, 81);
+    margin: 5px;
+    /* Add margin to separate buttons */
+    display: flex;
+    /* Use flexbox */
+    justify-content: center;
+    /* Center horizontally */
+    align-items: center;
+    /* Center vertically */
+}
+
+.input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+label {
+    margin-right: 5px;
+    /* Reduce margin between label and input */
+    flex-basis: 150px;
+    /* Set fixed width for labels */
+    text-align: right;
+    /* Align text to the right */
+    white-space: nowrap;
+    /* Prevent label text from wrapping */
+}
+
+/* Adjust spacing between label and input */
+input[type="checkbox"],
+input[type="radio"] {
+    margin-right: 5px;
+    /* Adjust margin between input and label */
+    align-self: center;
+    /* Align to center within flex container */
+}
+
+form {
+    width: 600px;
+    /* Increase form width for better layout */
+    /* Adjust form width as needed */
+    margin: 0 auto;
+    /* Center the form */
+    text-align: left;
+    /* Align text to the left */
+}
+
+.result {
+    font-size: 18px;
+    /* Change font size */
+    color: navy;
+    /* Change font color */
+}
